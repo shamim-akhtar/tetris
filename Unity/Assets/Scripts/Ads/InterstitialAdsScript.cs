@@ -6,12 +6,12 @@ using UnityEngine.Advertisements;
 public class InterstitialAdsScript : MonoBehaviour, IUnityAdsListener
 {
 #if UNITY_ANDROID
-    readonly string gameId = "4215399";
+    readonly string gameId = "4218775";
     readonly string mInterstitialSurfaceId = "Interstitial_Android"; 
     readonly string mBannerSurfaceId = "Banner_Android";
 #endif
 #if UNITY_IOS
-    readonly string gameId = "4215398";
+    readonly string gameId = "4218774";
     readonly string mInterstitialSurfaceId = "Interstitial_iOS";
     readonly string mBannerSurfaceId = "Banner_iOS";
 #endif
