@@ -798,15 +798,14 @@ MonoBehaviour:
   mAmbientSound: {fileID: 1757671802}
   mAds: {fileID: 1757671804}
   mGameAudioClips:
-  - {fileID: 8300000, guid: 4ec8177a0a5c3a04baffc24a760141db, type: 3}
-  - {fileID: 8300000, guid: 40d1f910179b28242820f44b8b1f07e7, type: 3}
-  - {fileID: 8300000, guid: ccd28673565a3c34f9ba221f85c2a954, type: 3}
-  - {fileID: 8300000, guid: 04c6580058e18fc4b8c65ff84b16db5f, type: 3}
-  - {fileID: 8300000, guid: 6af43507f58238041a2b6d255c35a68e, type: 3}
-  - {fileID: 8300000, guid: 23bdc0a8b9f695b4c8333e8c3781fa21, type: 3}
-  - {fileID: 8300000, guid: f033b573a8923f842bfb775d3bb85f17, type: 3}
-  - {fileID: 8300000, guid: 4b214c852e860c8439676fe568d194a5, type: 3}
-  - {fileID: 8300000, guid: 036a9a92d2fa2554cbf816301bc63ffc, type: 3}
+  - {fileID: 8300000, guid: 568fd2e17ed61cc4a8f45a104e4b0ef0, type: 3}
+  - {fileID: 8300000, guid: fa0694abf65420346b1b929a9f4d75e3, type: 3}
+  - {fileID: 8300000, guid: 7a0ee54d2970f1c4592ed0aa08aae470, type: 3}
+  - {fileID: 8300000, guid: d69cea5fb3825604abcf72adfe56a237, type: 3}
+  - {fileID: 8300000, guid: c75dc04989ba31f46acbc3014788f169, type: 3}
+  - {fileID: 8300000, guid: d64082b9581ba3e458c88aff5c1283e3, type: 3}
+  - {fileID: 8300000, guid: b5252239cdd970843ba112bac1cc3310, type: 3}
+  - {fileID: 8300000, guid: 6003b4667009487428c9dc2f2a12bf7d, type: 3}
 --- !u!114 &1757671804
 MonoBehaviour:
   m_ObjectHideFlags: 0
