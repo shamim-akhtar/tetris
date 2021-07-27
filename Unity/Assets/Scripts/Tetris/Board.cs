@@ -13,7 +13,10 @@ namespace Tetris
   {
     public static int width = 10;
     public static int height = 20;
-    public float mFallTime = 1.2f;
+    private float mFallTime = 1.2f;
+    private int mScoreForThisLevel = 20;
+    public float[] FallTimeArray;
+    public int[] ScoreArray;
     public int mLevel = 1;
     public Transform mSpawnPoint;
 
@@ -152,27 +155,23 @@ namespace Tetris
 
     void UpdateScore()
     {
-      mScore += 20;
-      if (mLastLineRemovedTime < 10)
-      {
-        mScore += 100;
-      }
-      else if (mLastLineRemovedTime < 20)
-      {
-        mScore += 80;
-      }
-      else if (mLastLineRemovedTime < 40)
-      {
-        mScore += 40;
-      }
-      else if (mLastLineRemovedTime < 60)
-      {
-        mScore += 20;
-      }
-      else
-      {
-        mScore += 10;
-      }
+      mScore += mScoreForThisLevel;
+      //if (mLastLineRemovedTime < 10)
+      //{
+      //  mScore += 100;
+      //}
+      //else if (mLastLineRemovedTime < 20)
+      //{
+      //  mScore += 80;
+      //}
+      //else if (mLastLineRemovedTime < 40)
+      //{
+      //  mScore += 40;
+      //}
+      //else if (mLastLineRemovedTime < 60)
+      //{
+      //  mScore += 20;
+      //}
       mScoreText.text = mScore.ToString();
       if (mMaxScore < mScore)
       {
@@ -198,8 +197,17 @@ namespace Tetris
 
     void LevelUp()
     {
-      mFallTime *= 0.75f;
       mLevel += 1;
+      if(FallTimeArray.Length >= mLevel)
+      {
+        mFallTime = FallTimeArray[mLevel-1];
+      }
+      if (ScoreArray.Length >= mLevel)
+      {
+        mScoreForThisLevel = ScoreArray[mLevel - 1];
+      }
+      Debug.Log("Falltime: " + mFallTime + ", LevelScore: " + mScoreForThisLevel);
+      //mFallTime *= 0.75f;
       mLinesRemoved = 0;
       mLastLineRemovedTime = 0.0f;
       mLevelText.text = mLevel.ToString();
