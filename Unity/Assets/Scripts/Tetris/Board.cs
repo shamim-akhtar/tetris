@@ -50,14 +50,14 @@ namespace Tetris
     public Button mBtnPlay;
 
     private bool mDownKeyPressed = false;
-    //private bool mLeftKeyPressed = false;
-    //private bool mRightKeyPressed = false;
     public FixedButton mBtnDown;
     int mMaxScore = 0;
 
     public GameObject[] mNextBlockUI;
 
-    //public SceneAmbientSound mSceneAmbientSound;
+#if (UNITY_ANDROID || UNITY_IOS)
+    public RewardedAdsScipt mRewardedAds;
+#endif
 
     #region SAVE/LOAD
     void Save()
@@ -189,28 +189,7 @@ namespace Tetris
     void Awake()
     {
       Load();
-#if (UNITY_ANDROID || UNITY_IOS)
-      GameApp.Instance.mAds.onAdSkipped = AdSkipped;
-      GameApp.Instance.mAds.onAdFinish = AdFinish;
-      GameApp.Instance.mAds.onAdError = AdSkipped;
-#endif
     }
-
-#if (UNITY_ANDROID || UNITY_IOS)
-    // ads
-    void AdFinish(string surfacingId, ShowResult showResult)
-    {
-      mLevel -= 1;
-      LevelUp();
-      mFsm.SetCurrentState(StateID.PLAYING);
-      mPausing = false;
-      mShowingAd = false;
-    }
-    void AdSkipped(string surfacingId, ShowResult showResult)
-    {
-      OnCancelAd();
-    }
-#endif
 
     void Lost()
     {
@@ -276,6 +255,15 @@ namespace Tetris
 
       mMaxScoreText.text = mMaxScore.ToString();
       mLinesText.text = GetLinesToClearLevel(mLevel).ToString();
+
+#if (UNITY_ANDROID || UNITY_IOS)
+      GameApp.Instance.mConfirmShowAd.onClickYes = OnShowAd;
+      GameApp.Instance.mConfirmShowAd.onClickNo = OnNoReward;
+
+      mRewardedAds.onNoReward = OnNoReward;
+      mRewardedAds.onReward = OnReward;
+      mRewardedAds.LoadAd();
+#endif
     }
 
     void Update()
@@ -291,12 +279,17 @@ namespace Tetris
       // then start with the same level.
       // else go to level 1.
 #if (UNITY_ANDROID || UNITY_IOS)
-      GameApp.Instance.mConfirmShowAd.onClickYes = OnShowAd;
-      GameApp.Instance.mConfirmShowAd.onClickNo = OnCancelAd;
-      GameApp.Instance.mConfirmShowAd.gameObject.SetActive(true);
+      if (mRewardedAds.mAdLoaded)
+      {
+        GameApp.Instance.mConfirmShowAd.gameObject.SetActive(true);
 
-      mPausing = true;
-      mShowingAd = true;
+        mPausing = true;
+        mShowingAd = true;
+      }
+      else
+      {
+        OnNoReward();
+      }
 #else
       mLevel = 1;
       mScore = 0;
@@ -306,18 +299,27 @@ namespace Tetris
 #if (UNITY_ANDROID || UNITY_IOS)
     void OnShowAd()
     {
-      GameApp.Instance.mAds.ShowRewardAd();
       GameApp.Instance.mConfirmShowAd.gameObject.SetActive(false);
+      mRewardedAds.ShowAd();
     }
-    void OnCancelAd()
+    void OnReward()
     {
+      mPausing = false;
+      mShowingAd = false;
+      mLevel -= 1;
+      LevelUp();
+      mFsm.SetCurrentState(StateID.PLAYING);
+      Debug.Log("Rewared with life");
+    }
+    void OnNoReward()
+    {
+      mPausing = false;
+      mShowingAd = false;
       mLevel = 1;
       mScore = 0;
       mScoreText.text = mScore.ToString();
       mFsm.SetCurrentState(StateID.PLAYING);
       GameApp.Instance.mConfirmShowAd.gameObject.SetActive(false);
-      mPausing = false;
-      mShowingAd = false;
     }
 #endif
 

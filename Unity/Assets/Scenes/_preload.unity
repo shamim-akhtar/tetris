@@ -301,6 +301,30 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8813750308575601543, guid: 9d4af35abe036214b9bcc93b0c94befe, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 462604015}
+    - target: {fileID: 8813750308575601543, guid: 9d4af35abe036214b9bcc93b0c94befe, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnClickYes
+      objectReference: {fileID: 0}
+    - target: {fileID: 8813750308575601543, guid: 9d4af35abe036214b9bcc93b0c94befe, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: CanvasConfirmShowAd, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 8813750309079131467, guid: 9d4af35abe036214b9bcc93b0c94befe, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 462604015}
+    - target: {fileID: 8813750309079131467, guid: 9d4af35abe036214b9bcc93b0c94befe, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnClickNo
+      objectReference: {fileID: 0}
+    - target: {fileID: 8813750309079131467, guid: 9d4af35abe036214b9bcc93b0c94befe, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: CanvasConfirmShowAd, Assembly-CSharp
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9d4af35abe036214b9bcc93b0c94befe, type: 3}
 --- !u!224 &462604014 stripped
@@ -673,6 +697,7 @@ GameObject:
   - component: {fileID: 1757671801}
   - component: {fileID: 1757671800}
   - component: {fileID: 1757671804}
+  - component: {fileID: 1757671805}
   m_Layer: 0
   m_Name: GameApp
   m_TagString: Untagged
@@ -914,7 +939,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mAmbientSound: {fileID: 1757671802}
-  mAds: {fileID: 1757671804}
   mConfirmShowAd: {fileID: 462604015}
   mGameAudioClips:
   - {fileID: 8300000, guid: 568fd2e17ed61cc4a8f45a104e4b0ef0, type: 3}
@@ -934,6 +958,25 @@ MonoBehaviour:
   m_GameObject: {fileID: 1757671798}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e65bb47d5c6f2f643ab64041bf834aa8, type: 3}
+  m_Script: {fileID: 11500000, guid: 779db1f4212314c499c1de0c9cff58e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _androidGameId: 4218775
+  _iOsGameId: 4218774
+  _testMode: 1
+  _enablePerPlacementMode: 1
+--- !u!114 &1757671805
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1757671798}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd851e18cf0afb546924abfbe0c966bc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _androidAdUnitId: Banner_Android
+  _iOsAdUnitId: Banner_iOS
+  mAdLoaded: 0

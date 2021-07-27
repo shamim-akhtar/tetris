@@ -4519,6 +4519,7 @@ GameObject:
   - component: {fileID: 1662078065}
   - component: {fileID: 1662078067}
   - component: {fileID: 1662078068}
+  - component: {fileID: 1662078069}
   m_Layer: 0
   m_Name: Board
   m_TagString: Untagged
@@ -4636,6 +4637,7 @@ MonoBehaviour:
   - {fileID: 1637466600}
   - {fileID: 1752648747}
   - {fileID: 554811482}
+  mRewardedAds: {fileID: 1662078069}
   mBoardSquare: {fileID: 5259058833285000319, guid: 8472b6ca9c02f164fa4b45e4bd025622, type: 3}
 --- !u!82 &1662078068
 AudioSource:
@@ -4733,6 +4735,21 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1662078069
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1662078064}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c87116b8cb18f504487f33932990af71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _androidAdUnitId: Rewarded_Android
+  _iOsAdUnitId: Rewarded_iOS
+  mAdLoaded: 0
 --- !u!1 &1687626935
 GameObject:
   m_ObjectHideFlags: 0

@@ -25,13 +25,13 @@ public class CanvasConfirmShowAd : MonoBehaviour
 
   public void OnClickNo()
   {
-    gameObject.SetActive(false);
     onClickNo?.Invoke();
+    gameObject.SetActive(false);
   }
 
   public void OnClickYes()
   {
-    gameObject.SetActive(false);
     onClickYes?.Invoke();
+    gameObject.SetActive(false);
   }
 }

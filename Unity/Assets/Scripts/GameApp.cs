@@ -8,7 +8,7 @@ using UnityEngine.SceneManagement;
 public class GameApp : Singleton<GameApp>
 {
   public AmbientSound mAmbientSound;
-  public InterstitialAdsScript mAds;
+  //public InterstitialAdsScript mAds;
   public CanvasConfirmShowAd mConfirmShowAd;
 
   public List<AudioClip> mGameAudioClips = new List<AudioClip>();

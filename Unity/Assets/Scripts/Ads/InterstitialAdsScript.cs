@@ -99,8 +99,8 @@ public class InterstitialAdsScript : MonoBehaviour, IUnityAdsListener
       //Debug.LogWarning(“The ad did not finish due to an error.”);
       onAdError?.Invoke(surfacingId, showResult);
     }
-  }
-
+  }    
+  
   public void OnUnityAdsDidError(string message)
   {
     // Log the error.
