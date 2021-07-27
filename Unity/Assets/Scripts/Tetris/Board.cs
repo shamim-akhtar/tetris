@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using Patterns;
 using UnityEngine.SceneManagement;
 using System.IO;
+using UnityEngine.Advertisements;
 
 namespace Tetris
 {
@@ -43,6 +44,7 @@ namespace Tetris
     public CanvasConfirmA mCanvasConfirm;
 
     private bool mPausing = false;
+    private bool mShowingAd = false;
 
     public Button mBtnPause;
     public Button mBtnPlay;
@@ -179,7 +181,7 @@ namespace Tetris
       mMaxScoreText.text = mMaxScore.ToString();
     }
 
-    void OnDestroy()
+    void OnApplicationPause()
     {
       Save();
     }
@@ -187,7 +189,28 @@ namespace Tetris
     void Awake()
     {
       Load();
+#if (UNITY_ANDROID || UNITY_IOS)
+      GameApp.Instance.mAds.onAdSkipped = AdSkipped;
+      GameApp.Instance.mAds.onAdFinish = AdFinish;
+      GameApp.Instance.mAds.onAdError = AdSkipped;
+#endif
     }
+
+#if (UNITY_ANDROID || UNITY_IOS)
+    // ads
+    void AdFinish(string surfacingId, ShowResult showResult)
+    {
+      mLevel -= 1;
+      LevelUp();
+      mFsm.SetCurrentState(StateID.PLAYING);
+      mPausing = false;
+      mShowingAd = false;
+    }
+    void AdSkipped(string surfacingId, ShowResult showResult)
+    {
+      OnCancelAd();
+    }
+#endif
 
     void Lost()
     {
@@ -247,7 +270,8 @@ namespace Tetris
           );
 
       mCanvasConfirm.onClickNo = OnCancelExitGame;
-      mCanvasConfirm.onClickYes = LoadMainMenu;
+      //mCanvasConfirm.onClickYes = LoadMainMenu;
+      mCanvasConfirm.onClickYes = QuitGame;
       mFsm.SetCurrentState(StateID.PLAYING);
 
       mMaxScoreText.text = mMaxScore.ToString();
@@ -262,9 +286,40 @@ namespace Tetris
     IEnumerator Coroutine_OnLost()
     {
       yield return StartCoroutine(Coroutine_ClearBoard());
+
+      // Show a reward ad. If the user watches the reward ad
+      // then start with the same level.
+      // else go to level 1.
+#if (UNITY_ANDROID || UNITY_IOS)
+      GameApp.Instance.mConfirmShowAd.onClickYes = OnShowAd;
+      GameApp.Instance.mConfirmShowAd.onClickNo = OnCancelAd;
+      GameApp.Instance.mConfirmShowAd.gameObject.SetActive(true);
+
+      mPausing = true;
+      mShowingAd = true;
+#else
       mLevel = 1;
-      mFsm.SetCurrentState(StateID.PLAYING);
+      mScore = 0;
+      mScoreText.text = mScore.ToString();
+#endif
     }
+#if (UNITY_ANDROID || UNITY_IOS)
+    void OnShowAd()
+    {
+      GameApp.Instance.mAds.ShowRewardAd();
+      GameApp.Instance.mConfirmShowAd.gameObject.SetActive(false);
+    }
+    void OnCancelAd()
+    {
+      mLevel = 1;
+      mScore = 0;
+      mScoreText.text = mScore.ToString();
+      mFsm.SetCurrentState(StateID.PLAYING);
+      GameApp.Instance.mConfirmShowAd.gameObject.SetActive(false);
+      mPausing = false;
+      mShowingAd = false;
+    }
+#endif
 
     void OnEnterLost()
     {
@@ -352,6 +407,7 @@ namespace Tetris
 
     void OnUpdatePlaying()
     {
+      if (mShowingAd) return;
       if (mPausing) return;
 #if TESTING
             if (Input.GetKeyDown(KeyCode.Alpha0))
@@ -564,15 +620,16 @@ namespace Tetris
 
     public void OnClickExitGame()
     {
+      if (mShowingAd) return;
       mCanvasConfirm.gameObject.SetActive(true);
       mPausing = true;
       mBtnPause.gameObject.SetActive(false);
       mBtnPlay.gameObject.SetActive(true);
-      //Application.Quit();
     }
 
     public void OnCancelExitGame()
     {
+      if (mShowingAd) return;
       mCanvasConfirm.gameObject.SetActive(false);
       mPausing = false;
       mBtnPause.gameObject.SetActive(true);
@@ -584,8 +641,14 @@ namespace Tetris
       SceneManager.LoadScene("MainMenu");
     }
 
+    public void QuitGame()
+    {
+      Application.Quit();
+    }
+
     public void OnClickPause()
     {
+      if (mShowingAd) return;
       mPausing = true;
       mBtnPause.gameObject.SetActive(false);
       mBtnPlay.gameObject.SetActive(true);
@@ -593,6 +656,7 @@ namespace Tetris
 
     public void OnClickPlay()
     {
+      if (mShowingAd) return;
       mPausing = false;
       mBtnPause.gameObject.SetActive(true);
       mBtnPlay.gameObject.SetActive(false);
