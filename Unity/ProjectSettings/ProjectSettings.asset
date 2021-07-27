@@ -238,7 +238,7 @@ PlayerSettings:
   AndroidTargetArchitectures: 2
   AndroidSplashScreenScale: 0
   androidSplashScreen: {fileID: 0}
-  AndroidKeystoreName: '{inproject}: Key/user.keystore'
+  AndroidKeystoreName: D:/gitrepo/gamedev/jigsaw-puzzle/Jigsaw/Key/user.keystore
   AndroidKeyaliasName: faramira
   AndroidBuildApkPerCpuArchitecture: 0
   AndroidTVCompatibility: 0
@@ -246,7 +246,7 @@ PlayerSettings:
   AndroidEnableTango: 0
   androidEnableBanner: 1
   androidUseLowAccuracyLocation: 0
-  androidUseCustomKeystore: 0
+  androidUseCustomKeystore: 1
   m_AndroidBanners:
   - width: 320
     height: 180
@@ -261,7 +261,7 @@ PlayerSettings:
   - m_BuildTarget: 
     m_Icons:
     - serializedVersion: 2
-      m_Icon: {fileID: 2800000, guid: 9997e5d5283dc0546bbbfea30d923246, type: 3}
+      m_Icon: {fileID: 2800000, guid: 74f6d93b82a7c5d48960338d29fbccb4, type: 3}
       m_Width: 128
       m_Height: 128
       m_Kind: 0

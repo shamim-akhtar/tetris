@@ -653,6 +653,7 @@ namespace Tetris
 
     public void QuitGame()
     {
+      Save();
       Application.Quit();
     }
 
