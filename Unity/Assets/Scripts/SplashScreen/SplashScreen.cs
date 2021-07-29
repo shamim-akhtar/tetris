@@ -21,6 +21,6 @@ public class SplashScreen : MonoBehaviour
         yield return StartCoroutine(Utils.Coroutine_FadeIn(Filler, 1.0f));
 
         GameApp.Instance.StartShufflePlay();
-        FadeSceneLoader.Instance.FadeSceneLoad("MainMenu");
+        FadeSceneLoader.Instance.FadeSceneLoad("Tetris");
     }
 }
